@@ -295,6 +295,7 @@ input {
   display: flex;
   color: var(--banner-char-color);
   opacity: 0;
+  backdrop-filter: blur(20px);
 }
 .char-left {
   border-left: 1px solid var(--banner-line-color);
@@ -1189,6 +1190,7 @@ input {
   transition-delay: 0s;
   background-color: rgba(255,255,255,0.9);
   box-shadow: 0 0 10px rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
 /* tag 容器 */
 }
 .post-card:hover {
@@ -1774,6 +1776,7 @@ input {
   transition-duration: 0.3s;
   transition-delay: 0s;
   box-shadow: 0 0 2px rgba(0,0,0,0.2);
+  backdrop-filter: blur(20px);
 }
 .sidebar:hover {
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
@@ -1835,6 +1838,9 @@ input {
     z-index: 9;
     transition: 0.4s;
   }
+}
+.waves {
+  backdrop-filter: blur(20px);
 }
 #site-overview-wrap {
   padding-top: 2rem;
@@ -1991,6 +1997,7 @@ input {
   color: #000;
 }
 #say {
+  backdrop-filter: blur(20px);
   color: var(--hty-text-color);
   display: block;
   text-align: center;
