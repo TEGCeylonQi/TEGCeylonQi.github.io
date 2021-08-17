@@ -2040,7 +2040,7 @@ input {
     color: var(--hty-text-color);
   }
   :root:not([data-user-color-scheme]) body::before {
-    background-image: url("https://cdn.jsdelivr.net/gh/TEGCeylonQi/TEGCeylonQi.github.io//images/202108172345852.jpg");
+    background-image: url("https://cdn.jsdelivr.net/gh/TEGCeylonQi/images//images/202108180050964.png");
   }
   :root:not([data-user-color-scheme]) .char {
     background-color: rgba(0,0,0,0.5);
@@ -2117,7 +2117,7 @@ input {
   color: var(--hty-text-color);
 }
 [data-user-color-scheme='dark'] body::before {
-  background-image: url("https://cdn.jsdelivr.net/gh/TEGCeylonQi/TEGCeylonQi.github.io//images/202108172345852.jpg");
+  background-image: url("https://cdn.jsdelivr.net/gh/TEGCeylonQi/images//images/202108180050964.png");
 }
 [data-user-color-scheme='dark'] .char {
   background-color: rgba(0,0,0,0.5);
