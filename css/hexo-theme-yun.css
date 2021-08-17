@@ -2048,17 +2048,23 @@ input {
     background-color: var(--banner-char-color);
   }
   :root:not([data-user-color-scheme]) .sidebar {
-    background-color: rgba(27,31,46,0.95);
+*
+    /background-color: rgba(27,31,46,0.95);
+    background-color: rgba(0,0,0,0.4);
     background-image: url("https://i.loli.net/2021/08/16/gHYzalJ1mNyGEpc.png");
   }
+*
   :root:not([data-user-color-scheme]) .search-popup {
     background-image: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/mountain-blur-30px.jpg");
   }
   :root:not([data-user-color-scheme]) .post-card {
     color: #fff;
-    background-color: rgba(27,31,46,0.9);
+    background-color: rgba(0,0,0,0.4);
+*
+    /background-color: rgba(27,31,46,0.9);
     box-shadow: 0 1px 8px rgba(27,31,46,0.1);
   }
+*
   :root:not([data-user-color-scheme]) .page-number-basic {
     background-color: rgba(0,0,0,0.5);
   }
@@ -2119,17 +2125,23 @@ input {
   background-color: var(--banner-char-color);
 }
 [data-user-color-scheme='dark'] .sidebar {
-  background-color: rgba(27,31,46,0.95);
+*
+  /background-color: rgba(27,31,46,0.95);
+  background-color: rgba(0,0,0,0.4);
   background-image: url("https://i.loli.net/2021/08/16/gHYzalJ1mNyGEpc.png");
 }
+*
 [data-user-color-scheme='dark'] .search-popup {
   background-image: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/mountain-blur-30px.jpg");
 }
 [data-user-color-scheme='dark'] .post-card {
   color: #fff;
-  background-color: rgba(27,31,46,0.9);
+  background-color: rgba(0,0,0,0.4);
+*
+  /background-color: rgba(27,31,46,0.9);
   box-shadow: 0 1px 8px rgba(27,31,46,0.1);
 }
+*
 [data-user-color-scheme='dark'] .page-number-basic {
   background-color: rgba(0,0,0,0.5);
 }
