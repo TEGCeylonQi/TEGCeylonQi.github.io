@@ -1,4 +1,4 @@
-<link rel="stylesheet" class="aplayer-secondary-style-marker" href="https://cdn.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>var iTorr=function(W,D,_b,_,__){
+var iTorr=function(W,D,_b,_,__){
 
 	_=function(i,p){
 		return (p||D).querySelector(i);
@@ -972,7 +972,7 @@ _.xhrSuccess=function(success,error,that){
 
 	_S.enHtml=function(){
 		return this.replace(/(^\s*)|(\s*$)/g,'')
-			.replace(/(http\:\/\/[\w\/.#&!?%:;=_]+\.)(gif|jpg|jpeg|png)/g,'<img src="$1$2" loading="lazy">')
+			.replace(/(http\:\/\/[\w\/.#&!?%:;=_]+\.)(gif|jpg|jpeg|png)/g,'<img src="$1$2">')
 			.replace(/(http\:\/\/ww[0-9]{1}\.sinaimg\.cn\/)([\w]{4,10})(\/[\w]{16,32}\.)(gif|jpg|jpeg|png)/g,"$1mw1024$3$4")
 			.replace(/http:\/\/www\.xiami\.com\/song\/([0-9]{5,12})[\?\w\.\=]*/g,'<a href="https://www.xiami.com/song/$1" target="_blank" class="xiami">http://www.xiami.com/song/$1</a>')
 			.replace(/(@)([\u0800-\u9fa5\w\-_]{2,32})/g,'<a href="https://weibo.com/n/$2" target="_blank" class="at">$1$2</a>')
@@ -1189,4 +1189,4 @@ _.xhrSuccess=function(success,error,that){
 
 
 	return _
-}(this,document,'​‌‍﻿');<link rel="stylesheet" href="/css/bilicard.css" type="text/css">
+}(this,document,'​‌‍﻿');

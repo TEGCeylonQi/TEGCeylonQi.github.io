@@ -1,4 +1,4 @@
-<link rel="stylesheet" class="aplayer-secondary-style-marker" href="https://cdn.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer@latest/dist/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>var Markdown;
+var Markdown;
 
 if (typeof exports === "object" && typeof require === "function") // we're in a CommonJS (e.g. Node.js) module
     Markdown = exports;
@@ -921,19 +921,19 @@ else
                 (?:\n\n|^)
                 (                               // $1 = the code block -- one or more lines, starting with a space/tab
                     (?:
-                        (?:[ ]&#123;4&#125;|\t)           // Lines must start with a tab or a tab-width of spaces - attacklab: g_tab_width
+                        (?:[ ]{4}|\t)           // Lines must start with a tab or a tab-width of spaces - attacklab: g_tab_width
                         .*\n+
                     )+
                 )
-                (\n*[ ]&#123;0,3&#125;[^ \t\n]|(?=~0))    // attacklab: g_tab_width
-            /g ,function()&#123;...&#125;);
+                (\n*[ ]{0,3}[^ \t\n]|(?=~0))    // attacklab: g_tab_width
+            /g ,function(){...});
             */
 
             // attacklab: sentinel workarounds for lack of \A and \Z, safari\khtml bug
             text += "~0";
 
-            text = text.replace(/(?:\n\n|^)((?:(?:[ ]&#123;4&#125;|\t).*\n+)+)(\n*[ ]&#123;0,3&#125;[^ \t\n]|(?=~0))/g,
-                function (wholeMatch, m1, m2) &#123;
+            text = text.replace(/(?:\n\n|^)((?:(?:[ ]{4}|\t).*\n+)+)(\n*[ ]{0,3}[^ \t\n]|(?=~0))/g,
+                function (wholeMatch, m1, m2) {
                     var codeblock = m1;
                     var nextChar = m2;
 
@@ -1323,4 +1323,4 @@ else
 
     }; // end of the Markdown.Converter constructor
 
-})();<link rel="stylesheet" href="/css/bilicard.css" type="text/css">
+})();
