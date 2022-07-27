@@ -1,0 +1,59 @@
+{
+  "name": "TEG高玩生存",
+  "author": "饼干",
+  "version": "1.0",
+  "description": "",
+  "fileApi": "https://tegceylonqi.cn/tegmcmodpack",
+  "files": [
+    {
+      "path": "mods/fabric-api-0.46.1+1.18.jar",
+      "hash": "b2cbec803fd1eb5da808f3ff3eed0ec7824f9192"
+    },
+    {
+      "path": "mods/iris-mc1.18.1-1.1.3.jar",
+      "hash": "b974b7f4724fd538012ad207a4613900d6a8c075"
+    },
+    {
+      "path": "mods/sodium-fabric-mc1.18-0.4.0-alpha5+build.9.jar",
+      "hash": "1af975fd055377f419baccd1784a3b2ae252de66"
+    },
+    {
+      "path": "mods/[音乐][fabric-1.17.1-1.18.1]AllMusic-2.5.11.jar",
+      "hash": "2166abb8d1b216369217443e4f5f48b8263fdf58"
+    },
+    {
+      "path": "resourcepacks/THE.END.GROUP - Ver 2.3.zip",
+      "hash": "7788258184790f041e13fcf80bbe794c42eb8122"
+    },
+    {
+      "path": "servers.dat",
+      "hash": "05f12f8850c6e034a45098e2da7f54bd9d4dfc30"
+    },
+    {
+      "path": "shaderpacks/SEUS-v11.0(2020升级版).zip",
+      "hash": "89e8eadd27ea53a78706a1aa339147a85331d7b2"
+    },
+    {
+      "path": "shaderpacks/SEUS_PTGI_E12汉化版.zip",
+      "hash": "07de526082775128e3eb7ccabf1b40f5315a9cb6"
+    },
+    {
+      "path": "shaderpacks/SEUS_PTGI_HRR_Test.zip",
+      "hash": "2887bf74ae774096faf522af11ff6635b7b94b01"
+    },
+    {
+      "path": "shaderpacks/Sildur\u0027s+Vibrant+Shaders+v1.32+Extreme.zip",
+      "hash": "6772614703ea693fbb004ab6814a0d292f8b90a8"
+    }
+  ],
+  "addons": [
+    {
+      "id": "game",
+      "version": "1.18.1"
+    },
+    {
+      "id": "fabric",
+      "version": "0.12.11"
+    }
+  ]
+}

@@ -1,0 +1,711 @@
+<div id="wmd-preview" class="wmd-preview"><div class="md-section-divider"></div><div class="md-section-divider"></div><div class="md-section-divider"></div><h2 data-anchor-id="315m" id="鉴权方法">鉴权方法</h2><p data-anchor-id="hatp">所有接口采用 POST 方式提交参数，用户需要在所有接口中传入以下参数</p><table data-anchor-id="ttsw" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>参数名</th>
+ <th>参数值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>email</td>
+ <td>email@example.com</td>
+ <td>Hostker 账号邮箱</td>
+</tr>
+<tr>
+ <td>token</td>
+ <td>blablabla</td>
+ <td>长度为 64 位的 API 令牌，登录客户中心「账号资料」中可以获取</td>
+</tr>
+</tbody></table><p data-anchor-id="qexy">请注意所有参数名、参数值严格区分大小写！像 sshKey 如果传入 sshkey 系统将报错！ <br>
+所有接口返回内容格式均为 Json，以下是全部接口统一返回的状态信息，无论成功和失败都会返回：</p><table data-anchor-id="thfb" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>success</td>
+ <td>1</td>
+ <td>本次处理是否成功，0失败1成功</td>
+</tr>
+<tr>
+ <td>errorMessage</td>
+ <td>用户余额不足</td>
+ <td>失败原因，success为1没有此字段</td>
+</tr>
+</tbody></table><p data-anchor-id="ndq0"><strong>※ 云端监控的部分接口返回数据量可能达到接近 MB 级，因此所有接口返回值强制都经过 gzip 压缩处理，在对接时请注意解压处理。</strong></p><div class="md-section-divider"></div><h2 data-anchor-id="dla3" id="账号相关接口">账号相关接口</h2><div class="md-section-divider"></div><h3 data-anchor-id="y50h" id="列出相关配额-httpsihostkercomapiquota">列出相关配额 <a href="https://i.hostker.com/api/quota" target="_blank">https://i.hostker.com/api/quota</a></h3><p data-anchor-id="6s4b">提交参数：无 <br>
+成功返回内容：</p><table data-anchor-id="b8z9" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>level</td>
+ <td>1</td>
+ <td>账号等级 0.未激活 1.试用 2.普通 3.VIP 4.SVIP</td>
+</tr>
+<tr>
+ <td>servers</td>
+ <td>1</td>
+ <td>云服务器数量</td>
+</tr>
+<tr>
+ <td>holdHours</td>
+ <td>24</td>
+ <td>欠费保留时间，单位小时</td>
+</tr>
+<tr>
+ <td>willSuspend</td>
+ <td>0</td>
+ <td>一天内是否会欠费，取值 0/1</td>
+</tr>
+<tr>
+ <td>suspend</td>
+ <td>0</td>
+ <td>账号是否被暂停，取值 0/1</td>
+</tr>
+<tr>
+ <td>suspendReason</td>
+ <td>欠费</td>
+ <td>账号被暂停原因</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><h3 data-anchor-id="lpfl" id="获得剩余贝壳-httpsihostkercomapibalance">获得剩余贝壳 <a href="https://i.hostker.com/api/balance" target="_blank">https://i.hostker.com/api/balance</a></h3><p data-anchor-id="m12p">提交参数：无 <br>
+成功返回内容：</p><table data-anchor-id="dnm3" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>balance</td>
+ <td>2300</td>
+ <td>剩余贝壳，请注意单位，1K = 1000 贝壳</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><h2 data-anchor-id="oeb3" id="ssh-公钥相关接口">SSH 公钥相关接口</h2><div class="md-section-divider"></div><h3 data-anchor-id="r67l" id="列出所有公钥-httpsihostkercomapilistsshkey">列出所有公钥 <a href="https://i.hostker.com/api/listSshKey" target="_blank">https://i.hostker.com/api/listSshKey</a></h3><p data-anchor-id="gvy7">提交参数：无 <br>
+成功返回内容：</p><table data-anchor-id="25lu" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>keys</td>
+ <td>$keys</td>
+ <td>公钥列表，二维数组</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="tjdq"><ol class="linenums"><li class="L0"><code class="language-php"><span class="pln">$keys</span><span class="pun">=</span><span class="pln">array</span><span class="pun">(</span></code></li><li class="L1"><code class="language-php"><span class="pln">    array</span><span class="pun">(</span></code></li><li class="L2"><code class="language-php"><span class="pln">        </span><span class="str">'id'</span><span class="pun">=&gt;</span><span class="str">'233'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 公钥唯一 ID</span></code></li><li class="L3"><code class="language-php"><span class="pln">        </span><span class="str">'name'</span><span class="pun">=&gt;</span><span class="str">'自用公钥'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 公钥识别名</span></code></li><li class="L4"><code class="language-php"><span class="pln">        </span><span class="str">'created'</span><span class="pun">=&gt;</span><span class="str">'1478349890'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 创建时间</span></code></li><li class="L5"><code class="language-php"><span class="pln">        </span><span class="str">'sshKey'</span><span class="pun">=&gt;</span><span class="str">'ssh-rsa blablabla'</span><span class="pln"> </span><span class="com">// 公钥内容</span></code></li><li class="L6"><code class="language-php"><span class="pln">    </span><span class="pun">),</span></code></li><li class="L7"><code class="language-php"><span class="pln">    array</span><span class="pun">(</span></code></li><li class="L8"><code class="language-php"><span class="pln">        </span><span class="str">'id'</span><span class="pun">=&gt;</span><span class="str">'2333'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 公钥唯一 ID</span></code></li><li class="L9"><code class="language-php"><span class="pln">        </span><span class="str">'name'</span><span class="pun">=&gt;</span><span class="str">'团队公钥'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 公钥识别名</span></code></li><li class="L0"><code class="language-php"><span class="pln">        </span><span class="str">'created'</span><span class="pun">=&gt;</span><span class="str">'1478349895'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 创建时间</span></code></li><li class="L1"><code class="language-php"><span class="pln">        </span><span class="str">'sshKey'</span><span class="pun">=&gt;</span><span class="str">'ssh-rsa blablablabla'</span><span class="pln"> </span><span class="com">// 公钥内容</span></code></li><li class="L2"><code class="language-php"><span class="pln">    </span><span class="pun">),</span></code></li><li class="L3"><code class="language-php"><span class="pln">    </span><span class="pun">......</span></code></li><li class="L4"><code class="language-php"><span class="pun">);</span></code></li></ol></pre><div class="md-section-divider"></div><h3 data-anchor-id="vsw0" id="新建公钥-httpsihostkercomapicreatesshkey">新建公钥 <a href="https://i.hostker.com/api/createSshKey" target="_blank">https://i.hostker.com/api/createSshKey</a></h3><p data-anchor-id="zxbb">提交参数：</p><table data-anchor-id="vvdz" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>name</td>
+ <td>我的公钥</td>
+ <td>识别名</td>
+</tr>
+<tr>
+ <td>key</td>
+ <td>ssh-rsa blablabla</td>
+ <td>公钥内容</td>
+</tr>
+</tbody></table><p data-anchor-id="2p7m">成功返回内容：</p><table data-anchor-id="pgtn" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>id</td>
+ <td>233333</td>
+ <td>公钥唯一 ID</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><h3 data-anchor-id="9jek" id="删除公钥-httpsihostkercomapideletesshkey">删除公钥 <a href="https://i.hostker.com/api/deleteSshKey" target="_blank">https://i.hostker.com/api/deleteSshKey</a></h3><p data-anchor-id="ziib">提交参数：</p><table data-anchor-id="qjzs" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>id</td>
+ <td>233</td>
+ <td>公钥唯一 ID</td>
+</tr>
+</tbody></table><p data-anchor-id="63av">成功返回内容：无特殊</p><div class="md-section-divider"></div><h2 data-anchor-id="pi6b" id="云服务器相关接口">云服务器相关接口<b>（由于业务变动暂停所有云服务器相关接口）</b></h2><div class="md-section-divider"></div><h3 data-anchor-id="n2nm" id="获取云服务器列表-httpsihostkercomapilistservers">获取云服务器列表 <a href="https://i.hostker.com/api/listServers" target="_blank">https://i.hostker.com/api/listServers</a></h3><p data-anchor-id="dm1x">提交参数：无 <br>
+成功返回内容：</p><table data-anchor-id="c0ha" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>servers</td>
+ <td>$servers</td>
+ <td>二维数组</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="x3xx"><ol class="linenums"><li class="L0"><code class="language-php"><span class="pln">$servers </span><span class="pun">=</span><span class="pln"> array</span><span class="pun">(</span></code></li><li class="L1"><code class="language-php"><span class="pln">    array</span><span class="pun">(</span></code></li><li class="L2"><code class="language-php"><span class="pln">        </span><span class="str">'uuid'</span><span class="pun">=&gt;</span><span class="str">'c106ab5c-904c-43fe-98a3-a106cd2b6c62'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 唯一识别 ID</span></code></li><li class="L3"><code class="language-php"><span class="pln">        </span><span class="str">'name'</span><span class="pun">=&gt;</span><span class="str">'PHP 节点'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 识别名</span></code></li><li class="L4"><code class="language-php"><span class="pln">        </span><span class="str">'mainip'</span><span class="pun">=&gt;</span><span class="str">'118.xxx.xxx.xxx'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 公网 IP</span></code></li><li class="L5"><code class="language-php"><span class="pln">        </span><span class="str">'intraip'</span><span class="pun">=&gt;</span><span class="str">'172.16.233.33'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 内网 IP，如不可用值为 0</span></code></li><li class="L6"><code class="language-php"><span class="pln">        </span><span class="str">'memory'</span><span class="pun">=&gt;</span><span class="str">'1024'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 内存大小，单位 MB</span></code></li><li class="L7"><code class="language-php"><span class="pln">        </span><span class="str">'area'</span><span class="pun">=&gt;</span><span class="str">'HK'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 所属机房，当前仅支持 HK</span></code></li><li class="L8"><code class="language-php"><span class="pln">        </span><span class="str">'price'</span><span class="pun">=&gt;</span><span class="str">'10'</span><span class="pln"> </span><span class="com">// 每小时贝壳价格</span></code></li><li class="L9"><code class="language-php"><span class="pln">    </span><span class="pun">),</span></code></li><li class="L0"><code class="language-php"><span class="pln">    array</span><span class="pun">(</span></code></li><li class="L1"><code class="language-php"><span class="pln">        </span><span class="str">'uuid'</span><span class="pun">=&gt;</span><span class="str">'c106ab5c-904c-43fe-98a3-a106cd2b6c63'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 唯一识别 ID</span></code></li><li class="L2"><code class="language-php"><span class="pln">        </span><span class="str">'name'</span><span class="pun">=&gt;</span><span class="str">'数据库节点'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 识别名</span></code></li><li class="L3"><code class="language-php"><span class="pln">        </span><span class="str">'mainip'</span><span class="pun">=&gt;</span><span class="str">'118.xxx.xxx.xxx'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 公网 IP</span></code></li><li class="L4"><code class="language-php"><span class="pln">        </span><span class="str">'intraip'</span><span class="pun">=&gt;</span><span class="str">'172.16.233.233'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 内网 IP，如不可用值为 0</span></code></li><li class="L5"><code class="language-php"><span class="pln">        </span><span class="str">'memory'</span><span class="pun">=&gt;</span><span class="str">'2048'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 内存大小，单位 MB</span></code></li><li class="L6"><code class="language-php"><span class="pln">        </span><span class="str">'area'</span><span class="pun">=&gt;</span><span class="str">'HK'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 所属机房，当前仅支持 HK</span></code></li><li class="L7"><code class="language-php"><span class="pln">        </span><span class="str">'price'</span><span class="pun">=&gt;</span><span class="str">'20'</span><span class="pln"> </span><span class="com">// 每小时贝壳价格</span></code></li><li class="L8"><code class="language-php"><span class="pln">    </span><span class="pun">),</span></code></li><li class="L9"><code class="language-php"><span class="pln">    </span><span class="pun">......</span></code></li><li class="L0"><code class="language-php"><span class="pun">);</span></code></li></ol></pre><div class="md-section-divider"></div><h3 data-anchor-id="hwdf" id="获取指定云服务器资料-httpsihostkercomapigetserver">获取指定云服务器资料 <a href="https://i.hostker.com/api/getServer" target="_blank">https://i.hostker.com/api/getServer</a></h3><p data-anchor-id="zp2h">提交参数：</p><table data-anchor-id="5avd" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>uuid</td>
+ <td>c106ab5c-904c-43fe-98a3-a106cd2b6c63</td>
+ <td>云服务器唯一 ID</td>
+</tr>
+</tbody></table><p data-anchor-id="106k">成功返回内容：</p><table data-anchor-id="28xn" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>name</td>
+ <td>PHP 节点</td>
+ <td>识别名</td>
+</tr>
+<tr>
+ <td>mainip</td>
+ <td>118.xxx.xxx.xxx</td>
+ <td>公网 IP</td>
+</tr>
+<tr>
+ <td>intraip</td>
+ <td>172.16.233.33</td>
+ <td>内网 IP，如不可用值为 0</td>
+</tr>
+<tr>
+ <td>netMAC</td>
+ <td>52:54:ff:ff:ff:00</td>
+ <td>公网网卡 MAC 地址</td>
+</tr>
+<tr>
+ <td>natMAC</td>
+ <td>52:54:ff:ff:ff:01</td>
+ <td>内网网卡 MAC 地址，如不可用值为 0</td>
+</tr>
+<tr>
+ <td>memory</td>
+ <td>1024</td>
+ <td>内存大小，单位 MB</td>
+</tr>
+<tr>
+ <td>area</td>
+ <td>HK</td>
+ <td>所属机房，当前是 HK</td>
+</tr>
+<tr>
+ <td>IOBytes</td>
+ <td>62914560</td>
+ <td>IO 吞吐配额，单位 Bps</td>
+</tr>
+<tr>
+ <td>IOPS</td>
+ <td>9999</td>
+ <td>IOPS 9999 相当于无限制</td>
+</tr>
+<tr>
+ <td>os</td>
+ <td>1</td>
+ <td>操作系统编号，详情见附录</td>
+</tr>
+<tr>
+ <td>netin</td>
+ <td>1280</td>
+ <td>公网入带宽，单位 KB/s</td>
+</tr>
+<tr>
+ <td>netout</td>
+ <td>384</td>
+ <td>公网出带宽，单位同上</td>
+</tr>
+<tr>
+ <td>natin</td>
+ <td>100000</td>
+ <td>内网入带宽，单位同上</td>
+</tr>
+<tr>
+ <td>natout</td>
+ <td>100000</td>
+ <td>内网出带宽，单位同上</td>
+</tr>
+<tr>
+ <td>closedDiskVirtIO</td>
+ <td>0</td>
+ <td>硬盘 VirtIO 驱动是否已关闭，取值 0/1</td>
+</tr>
+<tr>
+ <td>closedNetVirtIO</td>
+ <td>0</td>
+ <td>网卡 VirtIO 驱动是否已关闭，取值 0/1</td>
+</tr>
+<tr>
+ <td>cpu</td>
+ <td>1</td>
+ <td>CPU 核心数</td>
+</tr>
+<tr>
+ <td>bootOrder</td>
+ <td>1</td>
+ <td>启动顺序，0.先硬盘后光驱 1.先光驱后硬盘 2.只硬盘 3.只光驱</td>
+</tr>
+<tr>
+ <td>price</td>
+ <td>10</td>
+ <td>每小时贝壳价格</td>
+</tr>
+<tr>
+ <td>iso</td>
+ <td>0</td>
+ <td>光驱 ISO 编号，无光盘为0，详情见附录</td>
+</tr>
+<tr>
+ <td>gateway</td>
+ <td>118.xxx.xxx.xxx</td>
+ <td>公网网关地址</td>
+</tr>
+<tr>
+ <td>netmask</td>
+ <td>255.255.255.0</td>
+ <td>公网子网掩码</td>
+</tr>
+<tr>
+ <td>natmask</td>
+ <td>255.255.255.0</td>
+ <td>内网子网掩码，如不可用值为 0</td>
+</tr>
+<tr>
+ <td>rootPassword</td>
+ <td>blabla</td>
+ <td>默认 Root 密码</td>
+</tr>
+<tr>
+ <td>hddSize</td>
+ <td>25600</td>
+ <td>硬盘大小，单位 MB</td>
+</tr>
+<tr>
+ <td>created</td>
+ <td>1478342402</td>
+ <td>主机新建时间（Unix 时间戳）</td>
+</tr>
+<tr>
+ <td>status</td>
+ <td>1</td>
+ <td>状态 0.正在初始化系统 1.正常 2.被暂停</td>
+</tr>
+<tr>
+ <td>power</td>
+ <td>1</td>
+ <td>状态为 1 才有此字段，电源状态 0关机 1正常</td>
+</tr>
+<tr>
+ <td>suspendReason</td>
+ <td>贝壳欠费请充值</td>
+ <td>被暂停原因，如 status 值不是 2 没有此字段</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><h3 data-anchor-id="bfek" id="新建云服务器-httpsihostkercomapicreateserver">新建云服务器 <a href="https://i.hostker.com/api/createServer" target="_blank">https://i.hostker.com/api/createServer</a></h3><p data-anchor-id="93nq">提交参数：</p><table data-anchor-id="as1o" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>name</td>
+ <td>小叽</td>
+ <td>识别名</td>
+</tr>
+<tr>
+ <td>memory</td>
+ <td>1</td>
+ <td>内存大小，单位为 GB，可选 1 2 4 8</td>
+</tr>
+<tr>
+ <td>area</td>
+ <td>HK</td>
+ <td>目前仅提供 HK</td>
+</tr>
+<tr>
+ <td>os</td>
+ <td>1</td>
+ <td>操作系统编号，详情见附录</td>
+</tr>
+<tr>
+ <td>sshKey</td>
+ <td>233</td>
+ <td>SSH 公钥编号（可选）</td>
+</tr>
+</tbody></table><p data-anchor-id="nnfo"><strong>※ 如果传入的 sshKey 公钥编号不正确，新建操作也会继续执行，但系统不会包含公钥</strong></p><p data-anchor-id="w4ta">成功返回内容：</p><table data-anchor-id="r5yq" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>uuid</td>
+ <td>c106ab5c-904c-43fe-98a3-a106cd2b6c69</td>
+ <td>云服务器唯一 ID</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><h3 data-anchor-id="c4d9" id="对云服务器执行电源操作-httpsihostkercomapisetpower">对云服务器执行电源操作 <a href="https://i.hostker.com/api/setPower" target="_blank">https://i.hostker.com/api/setPower</a></h3><p data-anchor-id="estz">提交参数：</p><table data-anchor-id="00uk" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>uuid</td>
+ <td>c106ab5c-904c-43fe-98a3-a106cd2b6c62</td>
+ <td>云服务器唯一 ID</td>
+</tr>
+<tr>
+ <td>power</td>
+ <td>on</td>
+ <td>可选值 on 开机，off 关机，reboot 重启，forceOff 强制关机，forceReboot 强制重启</td>
+</tr>
+</tbody></table><p data-anchor-id="lgc6">off 和 reboot 操作通过 ACPI 实现，死机无响应等情况可能需要强制操作，强制切断电源有可能导致内存中的数据没有及时写到硬盘。<strong>当开机时开机操作会失败，反之亦然。</strong></p><p data-anchor-id="nr4w">成功返回内容：无特殊</p><div class="md-section-divider"></div><h3 data-anchor-id="ha6z" id="设置云服务器硬件-httpsihostkercomapisetserver">设置云服务器硬件 <a href="https://i.hostker.com/api/setServer" target="_blank">https://i.hostker.com/api/setServer</a></h3><p data-anchor-id="ys5w">提交参数：</p><table data-anchor-id="3j4j" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>uuid</td>
+ <td>c106ab5c-904c-43fe-98a3-a106cd2b6c62</td>
+ <td>云服务器唯一 ID</td>
+</tr>
+<tr>
+ <td>closeDiskVirtIO</td>
+ <td>0</td>
+ <td>关闭硬盘 VirtIO 驱动，1.关闭 0.开启</td>
+</tr>
+<tr>
+ <td>closeNetVirtIO</td>
+ <td>0</td>
+ <td>关闭网卡 VirtIO 驱动，1.关闭 0.开启</td>
+</tr>
+<tr>
+ <td>iso</td>
+ <td>0</td>
+ <td>光驱 ISO 编号，无光盘为0，详情见附录</td>
+</tr>
+<tr>
+ <td>bootOrder</td>
+ <td>0</td>
+ <td>启动顺序，1.先硬盘后光驱 2.先光驱后硬盘 3.只硬盘 4.只光驱</td>
+</tr>
+</tbody></table><p data-anchor-id="p0hr">成功返回内容：无特殊</p><div class="md-section-divider"></div><h3 data-anchor-id="2iss" id="重装云服务器系统-httpsihostkercomapireinstallserver">重装云服务器系统 <a href="https://i.hostker.com/api/reinstallServer" target="_blank">https://i.hostker.com/api/reinstallServer</a></h3><p data-anchor-id="9fjy">请注意所有数据将会彻底丢失无法找回！ <br>
+提交参数：</p><table data-anchor-id="fag9" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>uuid</td>
+ <td>c106ab5c-904c-43fe-98a3-a106cd2b6c62</td>
+ <td>云服务器唯一 ID</td>
+</tr>
+<tr>
+ <td>os</td>
+ <td>1</td>
+ <td>操作系统编号，详情见附录</td>
+</tr>
+<tr>
+ <td>sshKey</td>
+ <td>233</td>
+ <td>SSH 公钥编号（可选）</td>
+</tr>
+</tbody></table><p data-anchor-id="q3wc">成功返回内容：无特殊</p><div class="md-section-divider"></div><h3 data-anchor-id="00r7" id="删除云服务器-httpsihostkercomapideleteserver">删除云服务器 <a href="https://i.hostker.com/api/deleteServer" target="_blank">https://i.hostker.com/api/deleteServer</a></h3><p data-anchor-id="19us">请注意所有数据将会彻底丢失无法找回！ <br>
+提交参数：</p><table data-anchor-id="p4uf" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>uuid</td>
+ <td>c106ab5c-904c-43fe-98a3-a106cd2b6c62</td>
+ <td>云服务器唯一 ID</td>
+</tr>
+</tbody></table><p data-anchor-id="7iw5">成功返回内容：无特殊</p><div class="md-section-divider"></div><h2 data-anchor-id="m6s0" id="云端监控相关接口">云端监控相关接口</h2><p data-anchor-id="s4h3">云端监控提供最近一个月的分钟级数据和最近三个月的小时级数据供开发者调取。 <br>
+为避免数据量过大，我们限制每次调用小时级数据范围最大为 30 天，分钟级数据范围最大为 1 天。 <br>
+统一提交参数：</p><table data-anchor-id="3mvy" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>uuid</td>
+ <td>c106ab5c-904c-43fe-98a3-a106cd2b6c62</td>
+ <td>云服务器唯一 ID</td>
+</tr>
+<tr>
+ <td>startTime</td>
+ <td>1451577600</td>
+ <td>起始时间戳</td>
+</tr>
+<tr>
+ <td>endTime</td>
+ <td>1451663999</td>
+ <td>结束时间戳</td>
+</tr>
+<tr>
+ <td>unit</td>
+ <td>hour</td>
+ <td>数据单位，可选 hour 小时级或 minute 分钟级，默认 hour</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><h3 data-anchor-id="ypqu" id="获取-cpu-监控数据-httpsihostkercomapicpumonitor">获取 CPU 监控数据 <a href="https://i.hostker.com/api/cpuMonitor" target="_blank">https://i.hostker.com/api/cpuMonitor</a></h3><p data-anchor-id="xfu3">成功返回内容：</p><table data-anchor-id="tbv6" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>data</td>
+ <td>$cpuMonitor</td>
+ <td>二维数组</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="89sz"><ol class="linenums"><li class="L0"><code class="language-php"><span class="pln">$cpuMonitor</span><span class="pun">=</span><span class="pln">array</span><span class="pun">(</span></code></li><li class="L1"><code class="language-php"><span class="pln">    array</span><span class="pun">(</span><span class="lit">1451577600</span><span class="pun">,</span><span class="pln"> </span><span class="lit">15</span><span class="pun">),</span><span class="pln"> </span><span class="com">// 上一个时间戳至这一个时间戳的统计， CPU 百分比</span></code></li><li class="L2"><code class="language-php"><span class="pln">    array</span><span class="pun">(</span><span class="lit">1451577660</span><span class="pun">,</span><span class="pln"> </span><span class="lit">19</span><span class="pun">),</span></code></li><li class="L3"><code class="language-php"><span class="pln">    </span><span class="pun">...</span></code></li><li class="L4"><code class="language-php"><span class="pun">);</span></code></li></ol></pre><div class="md-section-divider"></div><h3 data-anchor-id="yoyf" id="获取公网带宽监控数据-httpsihostkercomapinetmonitor">获取公网带宽监控数据 <a href="https://i.hostker.com/api/netMonitor" target="_blank">https://i.hostker.com/api/netMonitor</a></h3><p data-anchor-id="9jys">成功返回内容：</p><table data-anchor-id="rxn4" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>data</td>
+ <td>$netMonitor</td>
+ <td>二维数组</td>
+</tr>
+</tbody></table><p data-anchor-id="9ds0">※ 虽然经过 gzip 处理，数据量还会巨大，请注意</p><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="edkw"><ol class="linenums"><li class="L0"><code class="language-php"><span class="pln">$netMonitor</span><span class="pun">=</span><span class="pln">array</span><span class="pun">(</span></code></li><li class="L1"><code class="language-php"><span class="pln">    array</span><span class="pun">(</span></code></li><li class="L2"><code class="language-php"><span class="pln">        </span><span class="str">"t"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1481018400</span><span class="pun">,</span><span class="pln"> </span><span class="com">// Unix 时间戳</span></code></li><li class="L3"><code class="language-php"><span class="pln">        </span><span class="str">"bwin"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 下行带宽（秒采样值）</span></code></li><li class="L4"><code class="language-php"><span class="pln">        </span><span class="str">"bwout"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 上行带宽（秒采样值）</span></code></li><li class="L5"><code class="language-php"><span class="pln">        </span><span class="str">"tin"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">138</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 下行流量单位 KiB（距离上一个统计间隔总计）</span></code></li><li class="L6"><code class="language-php"><span class="pln">        </span><span class="str">"tout"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">14</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 上行流量单位 KiB（距离上一个统计间隔总计）</span></code></li><li class="L7"><code class="language-php"><span class="pln">        </span><span class="str">"pkgin"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">2545</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 入包量（距离上一个统计间隔总计）</span></code></li><li class="L8"><code class="language-php"><span class="pln">        </span><span class="str">"pkgout"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">175</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 出包量（距离上一个统计间隔总计）</span></code></li><li class="L9"><code class="language-php"><span class="pln">        </span><span class="str">"pkgins"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0.78333333333333</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 入包速（秒采样值）</span></code></li><li class="L0"><code class="language-php"><span class="pln">        </span><span class="str">"pkgouts"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0.033333333333333</span><span class="pln"> </span><span class="com">// 出包速（秒采样值）</span></code></li><li class="L1"><code class="language-php"><span class="pln">    </span><span class="pun">),</span></code></li><li class="L2"><code class="language-php"><span class="pln">    array</span><span class="pun">(</span></code></li><li class="L3"><code class="language-php"><span class="pln">        </span><span class="str">"t"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1481022000</span><span class="pun">,</span></code></li><li class="L4"><code class="language-php"><span class="pln">        </span><span class="str">"bwin"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span></code></li><li class="L5"><code class="language-php"><span class="pln">        </span><span class="str">"bwout"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span></code></li><li class="L6"><code class="language-php"><span class="pln">        </span><span class="str">"tin"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">174</span><span class="pun">,</span></code></li><li class="L7"><code class="language-php"><span class="pln">        </span><span class="str">"tout"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">9</span><span class="pun">,</span></code></li><li class="L8"><code class="language-php"><span class="pln">        </span><span class="str">"pkgin"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">3002</span><span class="pun">,</span></code></li><li class="L9"><code class="language-php"><span class="pln">        </span><span class="str">"pkgout"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">159</span><span class="pun">,</span></code></li><li class="L0"><code class="language-php"><span class="pln">        </span><span class="str">"pkgins"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0.86666666666667</span><span class="pun">,</span></code></li><li class="L1"><code class="language-php"><span class="pln">        </span><span class="str">"pkgouts"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0.033333333333333</span></code></li><li class="L2"><code class="language-php"><span class="pln">    </span><span class="pun">),</span></code></li><li class="L3"><code class="language-php"><span class="pln">    </span><span class="pun">...</span></code></li><li class="L4"><code class="language-php"><span class="pun">);</span></code></li></ol></pre><div class="md-section-divider"></div><h3 data-anchor-id="vhkz" id="获取内网带宽监控数据-httpsihostkercomapinatmonitor">获取内网带宽监控数据 <a href="https://i.hostker.com/api/natMonitor" target="_blank">https://i.hostker.com/api/natMonitor</a></h3><p data-anchor-id="wlsn">成功返回内容：</p><table data-anchor-id="n78q" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>data</td>
+ <td>$netMonitor</td>
+ <td>二维数组</td>
+</tr>
+</tbody></table><p data-anchor-id="fodh">※ 返回值直接参考上面 netMonito 接口的格式</p><div class="md-section-divider"></div><h3 data-anchor-id="0d8y" id="获取硬盘-iops-统计数据-httpsihostkercomapiiomonitor">获取硬盘 IOPS 统计数据 <a href="https://i.hostker.com/api/IOMonitor" target="_blank">https://i.hostker.com/api/IOMonitor</a></h3><p data-anchor-id="syhn">成功返回内容：</p><table data-anchor-id="dbo3" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>data</td>
+ <td>$IOMonitor</td>
+ <td>二维数组</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="vavd"><ol class="linenums"><li class="L0"><code class="language-php"><span class="pln">$IOMonitor</span><span class="pun">=</span><span class="pln">array</span><span class="pun">(</span></code></li><li class="L1"><code class="language-php"><span class="pln">    array</span><span class="pun">(</span></code></li><li class="L2"><code class="language-php"><span class="pln">        </span><span class="str">"t"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1481018400</span><span class="pun">,</span></code></li><li class="L3"><code class="language-php"><span class="pln">        </span><span class="str">"iorqs"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 读操作次数（秒采样值）</span></code></li><li class="L4"><code class="language-php"><span class="pln">        </span><span class="str">"iowrs"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0.86666666666667</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 写操作次数（秒采样值）</span></code></li><li class="L5"><code class="language-php"><span class="pln">        </span><span class="str">"iorbs"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 读总量（距离上一个统计间隔总计）</span></code></li><li class="L6"><code class="language-php"><span class="pln">        </span><span class="str">"iowbs"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">4</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 写总量（距离上一个统计间隔总计）</span></code></li><li class="L7"><code class="language-php"><span class="pln">        </span><span class="str">"iorq"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">827</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 读操作次数（秒采样值）</span></code></li><li class="L8"><code class="language-php"><span class="pln">        </span><span class="str">"iowr"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">518</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 写操作次数（秒采样值）</span></code></li><li class="L9"><code class="language-php"><span class="pln">        </span><span class="str">"iotr"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">97740</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 读操作次数（距离上一个统计间隔总计）</span></code></li><li class="L0"><code class="language-php"><span class="pln">        </span><span class="str">"iotw"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">2324</span><span class="pln"> </span><span class="com">// 写操作次数（距离上一个统计间隔总计）</span></code></li><li class="L1"><code class="language-php"><span class="pln">    </span><span class="pun">),</span></code></li><li class="L2"><code class="language-php"><span class="pln">    array</span><span class="pun">(</span></code></li><li class="L3"><code class="language-php"><span class="pln">        </span><span class="str">"t"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1481022000</span><span class="pun">,</span></code></li><li class="L4"><code class="language-php"><span class="pln">        </span><span class="str">"iorqs"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span></code></li><li class="L5"><code class="language-php"><span class="pln">        </span><span class="str">"iowrs"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span></code></li><li class="L6"><code class="language-php"><span class="pln">        </span><span class="str">"iorbs"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span></code></li><li class="L7"><code class="language-php"><span class="pln">        </span><span class="str">"iowbs"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span></code></li><li class="L8"><code class="language-php"><span class="pln">        </span><span class="str">"iorq"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">136</span><span class="pun">,</span></code></li><li class="L9"><code class="language-php"><span class="pln">        </span><span class="str">"iowr"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">453</span><span class="pun">,</span></code></li><li class="L0"><code class="language-php"><span class="pln">        </span><span class="str">"iotr"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">9228</span><span class="pun">,</span></code></li><li class="L1"><code class="language-php"><span class="pln">        </span><span class="str">"iotw"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1972</span></code></li><li class="L2"><code class="language-php"><span class="pln">    </span><span class="pun">),</span></code></li><li class="L3"><code class="language-php"><span class="pln">    </span><span class="pun">...</span></code></li><li class="L4"><code class="language-php"><span class="pun">);</span></code></li></ol></pre><div class="md-section-divider"></div><h2 data-anchor-id="eox1" id="主机壳-dns-相关接口">主机壳 DNS 相关接口</h2><div class="md-section-divider"></div><h3 data-anchor-id="lydo" id="获取解析记录列表-httpsihostkercomapidnsgetrecords">获取解析记录列表 <a href="https://i.hostker.com/api/dnsGetRecords" target="_blank">https://i.hostker.com/api/dnsGetRecords</a></h3><p data-anchor-id="fl5h">提交参数：</p><table data-anchor-id="7pb6" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>domain</td>
+ <td>hostker.com</td>
+ <td>主域名</td>
+</tr>
+</tbody></table><p data-anchor-id="yjoj">成功返回内容：</p><table data-anchor-id="pasf" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>records</td>
+ <td>$records</td>
+ <td>二维数组</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><pre class="prettyprint linenums prettyprinted" data-anchor-id="gci4"><ol class="linenums"><li class="L0"><code class="language-php"><span class="pln">$records</span><span class="pun">=</span><span class="pln">array</span><span class="pun">(</span></code></li><li class="L1"><code class="language-php"><span class="pln">    array</span><span class="pun">(</span></code></li><li class="L2"><code class="language-php"><span class="pln">        </span><span class="str">"id"</span><span class="pun">=&gt;</span><span class="str">"233"</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 记录值编号，修改和删除需传入</span></code></li><li class="L3"><code class="language-php"><span class="pln">        </span><span class="str">"header"</span><span class="pun">=&gt;</span><span class="str">""</span><span class="pun">,</span><span class="pln"> </span><span class="com">// 主机头</span></code></li><li class="L4"><code class="language-php"><span class="pln">        </span><span class="str">"type"</span><span class="pun">=&gt;</span><span class="str">"MX"</span><span class="pun">,</span></code></li><li class="L5"><code class="language-php"><span class="pln">        </span><span class="str">"ttl"</span><span class="pun">=&gt;</span><span class="str">"600"</span><span class="pun">,</span></code></li><li class="L6"><code class="language-php"><span class="pln">        </span><span class="str">"pritority"</span><span class="pun">=&gt;</span><span class="str">"5"</span><span class="pun">,</span></code></li><li class="L7"><code class="language-php"><span class="pln">        </span><span class="str">"data"</span><span class="pun">=&gt;</span><span class="str">"mx1.smartgslb.com"</span></code></li><li class="L8"><code class="language-php"><span class="pln">    </span><span class="pun">),</span><span class="pln"> </span></code></li><li class="L9"><code class="language-php"><span class="pln">    array</span><span class="pun">(</span></code></li><li class="L0"><code class="language-php"><span class="pln">        </span><span class="str">"id"</span><span class="pun">=&gt;</span><span class="str">"2333"</span><span class="pun">,</span></code></li><li class="L1"><code class="language-php"><span class="pln">        </span><span class="str">"header"</span><span class="pun">=&gt;</span><span class="str">"i"</span><span class="pun">,</span></code></li><li class="L2"><code class="language-php"><span class="pln">        </span><span class="str">"type"</span><span class="pun">=&gt;</span><span class="str">"A"</span><span class="pun">,</span></code></li><li class="L3"><code class="language-php"><span class="pln">        </span><span class="str">"ttl"</span><span class="pun">=&gt;</span><span class="str">"600"</span><span class="pun">,</span></code></li><li class="L4"><code class="language-php"><span class="pln">        </span><span class="str">"data"</span><span class="pun">=&gt;</span><span class="str">"172.16.5.5"</span></code></li><li class="L5"><code class="language-php"><span class="pln">    </span><span class="pun">),</span><span class="pln"> </span></code></li><li class="L6"><code class="language-php"><span class="pln">    </span><span class="pun">...</span></code></li><li class="L7"><code class="language-php"><span class="pun">);</span></code></li></ol></pre><div class="md-section-divider"></div><h3 data-anchor-id="i7c5" id="添加解析记录-httpsihostkercomapidnsaddrecord">添加解析记录 <a href="https://i.hostker.com/api/dnsAddRecord" target="_blank">https://i.hostker.com/api/dnsAddRecord</a></h3><p data-anchor-id="817p">提交参数：</p><table data-anchor-id="4rvc" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>domain</td>
+ <td>hostker.com</td>
+ <td>主域名</td>
+</tr>
+<tr>
+ <td>header</td>
+ <td>www</td>
+ <td>主机头，如果为空可以是空或者@，末尾无需带.（点）</td>
+</tr>
+<tr>
+ <td>type</td>
+ <td>CDN</td>
+ <td>解析记录类型，可选 CDN A CNAME TXT MX AAAA</td>
+</tr>
+<tr>
+ <td>data</td>
+ <td>hostker.com</td>
+ <td>解析记录值，当记录类型为 CDN 时可不传此字段</td>
+</tr>
+<tr>
+ <td>ttl</td>
+ <td>300</td>
+ <td>记录生存周期，最小 60 最大 339384，当记录类型为 CDN 时可不传此字段</td>
+</tr>
+<tr>
+ <td>priority</td>
+ <td>5</td>
+ <td>优先级，最小 1 最大 50000，当记录类型非 MX 时可不传此字段</td>
+</tr>
+</tbody></table><p data-anchor-id="egmy">成功返回内容：</p><table data-anchor-id="zeav" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>id</td>
+ <td>233</td>
+ <td>记录值编号，修改和删除时需要传入</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><h3 data-anchor-id="00bt" id="修改解析记录-httpsihostkercomapidnseditrecord">修改解析记录 <a href="https://i.hostker.com/api/dnsEditRecord" target="_blank">https://i.hostker.com/api/dnsEditRecord</a></h3><p data-anchor-id="hw0u">提交参数：</p><table data-anchor-id="gv86" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>id</td>
+ <td>233</td>
+ <td>解析记录编号</td>
+</tr>
+<tr>
+ <td>data</td>
+ <td>hostker.com</td>
+ <td>解析记录值，当记录类型为 CDN 时可不传此字段</td>
+</tr>
+<tr>
+ <td>ttl</td>
+ <td>300</td>
+ <td>记录生存周期，最小 60 最大 339384，当记录类型为 CDN 时可不传此字段</td>
+</tr>
+<tr>
+ <td>priority</td>
+ <td>5</td>
+ <td>优先级，最小 1 最大 50000，当记录类型非 MX 时可不传此字段</td>
+</tr>
+</tbody></table><p data-anchor-id="ttxe">※ 主机头和记录类型不能修改，只能修改记录值 <br>
+成功返回内容：无特殊</p><div class="md-section-divider"></div><h3 data-anchor-id="kmxb" id="删除解析记录-httpsihostkercomapidnsdeleterecord">删除解析记录 <a href="https://i.hostker.com/api/dnsDeleteRecord" target="_blank">https://i.hostker.com/api/dnsDeleteRecord</a></h3><p data-anchor-id="n369">提交参数：</p><table data-anchor-id="7dan" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>字段</th>
+ <th>示例值</th>
+ <th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>id</td>
+ <td>233</td>
+ <td>解析记录编号</td>
+</tr>
+</tbody></table><p data-anchor-id="5ayw">成功返回内容：无特殊</p><div class="md-section-divider"></div><h2 data-anchor-id="tepb" id="附录">附录</h2><div class="md-section-divider"></div><h3 data-anchor-id="ozyr" id="操作系统列表">操作系统列表</h3><table data-anchor-id="ggc8" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>编号</th>
+ <th>系统名称</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>1</td>
+ <td>CentOS 6.6 x86_64</td>
+</tr>
+<tr>
+ <td>2</td>
+ <td>CentOS 7.2 x86_64</td>
+</tr>
+<tr>
+ <td>3</td>
+ <td>Debian 8.2 x86_64</td>
+</tr>
+<tr>
+ <td>4</td>
+ <td>Ubuntu 16.04 x86_64</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><h3 data-anchor-id="bcy1" id="光驱-iso-列表">光驱 ISO 列表</h3><table data-anchor-id="dnxz" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>编号</th>
+ <th>光盘名称</th>
+ <th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>1</td>
+ <td>sysrcd-4.8.3</td>
+ <td></td>
+</tr>
+<tr>
+ <td>2</td>
+ <td>cn_windows_server_2008_r2_sp1_x64_dvd_with_virtio</td>
+ <td>2G内存起可挂载</td>
+</tr>
+<tr>
+ <td>3</td>
+ <td>cn_windows_server_2012_r2_with_update_x64_dvd_6052725_with_virtio</td>
+ <td>2G内存起可挂载</td>
+</tr>
+</tbody></table></div>

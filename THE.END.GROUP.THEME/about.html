@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html app="help">
+<meta charset="utf-8">
+<title>关于 - THE-END-GROUP - 可能是最好用的Flyme主题</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=1280">
+<link rel="stylesheet" href="static/css/i.css">
+<meta name="renderer" content="webkit"><meta http-equiv="Cache-Control" content="no-siteapp" /><meta name="apple-mobile-web-app-title" content="Hostker"><meta name="google" value="notranslate">
+<style>
+table{
+	width: 100%;
+    margin-bottom: 20px;
+	max-width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+        display: table;
+        border: 1px solid #ddd;
+    border-collapse: separate;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+thead{
+	    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+td{
+border-left: 1px solid #eee;
+    border-top: 1px solid #eee;
+        padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+th{
+border-top: 1px solid #eee;
+}
+</style>
+<header class="a-fadeinT">
+	<div class="layout">
+		<a href="index.html">
+			<h1>TEG</h1>
+		</a>
+		<nav>
+			<a href="https://tegceylonqi.cn/" target="_blank">官方博客</a>
+			<a href="http://teg.sxl.cn/">官方网站</a>
+			<a href="#" class="login-link">立即购买</a>
+		</nav>
+	</div>
+</header>
+<h1 id="标题"></h1>
+<nav class="nav-box">
+	<a href="#/qa">常见问题</a>
+	<a href="#/tos">服务条款</a>
+	<a href="#/about">关于我们</a>
+</nav>
+<div class="main-box">
+	<div id="M" class="md-content layout"></div>
+</div>
+
+<footer>
+	<div class="htko">
+		<p>一切的开端，梦的延续</p>
+	</div>
+
+	<div class="layout">
+		<div class="l">
+			<a href="http://teg.sxl.cn/" target="_blank">@THE.END.GROUP</a>
+			<a href="https://tegceylonqi.cn/" target="_blank"> TEG_Ceylon_Qi</a>
+		</div>
+		<div class="r">
+			<a href="#" target=_blank>TEG主题</a>
+		</div>
+	</div>
+</footer>
+
+<script src="static/js/itorr2.js" tppabs=""></script>
+<script src="static/js/q.js" tppabs=""></script>
+<script src="static/js/pagedown.converter.js" tppabs=""></script>
+<script>
+var 
+C=new Markdown.Converter();
+
+Q.reg('pop',function(view){
+	if(!view){
+		return;
+	}
+
+	var 
+	nav=document.querySelector('.nav-box a[href*="'+view+'"]');
+
+	if(!nav){
+		return;
+	}
+
+	var 
+	lastNav=document.querySelector('.nav-box a.active');
+
+	if(lastNav){
+		lastNav.classList.remove('active');
+	}
+
+	nav.classList.add('active');
+
+	标题.innerHTML=nav.innerHTML;
+
+}).reg('qa',function(){
+	M.innerHTML='<p class="text-banner">文档加载中。</p>';
+	_.x('static/md/qa.md?6',function(r){
+		M.innerHTML=C.makeHtml(r);
+	});
+}).reg('tc',function(){
+	M.innerHTML='<p class="text-banner">文档加载中。</p>';
+	_.x('https://www.hostker.com/static/md/tc.md?5',function(r){
+		M.innerHTML=C.makeHtml(r);
+	});
+}).reg('tos',function(){
+	M.innerHTML='<p class="text-banner">文档加载中。</p>';
+}).reg('about',function(){
+	M.innerHTML='<p><b>THE.END.GROUP</b> 成立于2016年，但最初并不是作为电子竞技俱乐部的身份诞生，而是一个专业的视频制作团队，后来经历了不断的发展和转型，逐渐转变为集电子竞技、视频制作、信息技术于一体的团队。</p>\
+	';
+
+}).init({
+	index:'qa'
+});
+</script><div style="display:none;"><script type="text/javascript" src="../tajs.qq.com/stats-sId=22790179" tppabs="https://tajs.qq.com/stats?sId=22790179" charset="UTF-8"></script><script src="../s4.cnzz.com/z_stat.php-id=1254420621&web_id=1254420621" tppabs="https://s4.cnzz.com/z_stat.php?id=1254420621&web_id=1254420621" language="JavaScript"></script></div>
